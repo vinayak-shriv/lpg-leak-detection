@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ipynb_checkpoints/
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# Secrets — never commit API keys
+.env
+*.key
+
+# Training runs and generated output (reproducible from scripts)
+runs/
+outputs/
+
+# Intermediate dataset staging (regenerate with split_dataset.py)
+dataset/images/raw/
+dataset/labels/raw/
+
+# Generated train/val splits. dataset/{images,labels}/all/ is the canonical
+# source and IS committed; these are exact copies of it, so committing them
+# would double the repository size for no benefit.
+# Recreate with: python scripts/split_dataset.py
+dataset/images/train/
+dataset/images/val/
+dataset/labels/train/
+dataset/labels/val/
+
+# Pretrained checkpoint (ultralytics downloads this automatically)
+yolov8n.pt
+yolov8s.pt
+
+# OS noise
+.DS_Store
+Thumbs.db

@@ -1,0 +1,11 @@
+# Core
+ultralytics>=8.1.0,<9.0
+opencv-python>=4.8.0
+numpy>=1.24.0,<3.0
+torch>=2.0.0
+
+# Dataset upload (optional; only needed by scripts/upload_to_roboflow.py)
+roboflow>=1.1.0
+
+# Development
+pytest>=7.4.0

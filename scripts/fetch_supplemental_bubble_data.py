@@ -22,10 +22,13 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 from lpgdetect.paths import DATASET_DIR  # noqa: E402
 
 # (workspace, project, version, prefix, license)
+#
+# Visually inspect a sample of images before adding a new source here --
+# "deakin-hbdei/bubble-dataset-kkrbu" was added on license/class-name alone
+# and turned out to be contact-lens microscopy, not open-water bubbles.
 SOURCES = [
     ("techit-sritrakul", "bubble-leak-test-in-oil-cooler", 4, "oil_",
      "Public Domain"),
-    ("deakin-hbdei", "bubble-dataset-kkrbu", 1, "deakin_", "CC BY 4.0"),
 ]
 
 

@@ -4,18 +4,25 @@
 
 | Prefix | Origin | Images | License |
 |---|---|---|---|
-| `vid_` | Frames from `media/test.mp4`, drafted with `auto_label.py` | 513 (20 real, see Known history) | Project-owned |
+| `vid_` | Frames from `media/test.mp4`, drafted with `auto_label.py` | 513 (0 real, see Known history) | Project-owned |
 | `rf_` | [Air Leak Bubble Detection](https://universe.roboflow.com/vision-test-ic1cb/air-leak-bubble-detection), Roboflow Universe | 966 | CC BY 4.0 |
 | `oil_` | [Bubble Leak Test in Oil Cooler](https://universe.roboflow.com/techit-sritrakul/bubble-leak-test-in-oil-cooler), Roboflow Universe | 2,252 (incl. 3x in-export augmentation, see Known history) | Public Domain |
-| `deakin_` | [Bubble Dataset](https://universe.roboflow.com/deakin-hbdei/bubble-dataset-kkrbu), Roboflow Universe | 1,639 | CC BY 4.0 |
 
 Filename prefixes keep sources distinguishable after merging, so a split can
 be inspected for source imbalance and any source can be removed without
-guesswork. `oil_` and `deakin_` are fetched with
+guesswork. External sources are fetched with
 `scripts/fetch_supplemental_bubble_data.py` (needs `ROBOFLOW_API_KEY`) and
 folded in with `scripts/merge_external_dataset.py`, which also remaps their
-label class indices to `0` (`deakin_`'s original `Bubble`/`Water_Bubble`
-classes both become `bubble`).
+label class indices to `0`.
+
+A fourth source, `deakin_` ([Bubble Dataset](https://universe.roboflow.com/deakin-hbdei/bubble-dataset-kkrbu),
+1,639 images), was added and then removed (2026-09-04) after visual
+inspection showed it is contact-lens quality-inspection microscopy, not
+open-water bubble imagery — its "Bubble"/"Water_Bubble" classes refer to air
+bubbles embedded in lens material. It was added based on its license and
+class names alone without checking sample images first; don't repeat that
+mistake with future sources. `scripts/fetch_supplemental_bubble_data.py`'s
+`SOURCES` list no longer includes it.
 
 ## Format
 

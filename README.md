@@ -92,6 +92,10 @@ handles argument parsing and I/O.
 |---|---|
 | `export_frames.py` | Sample frames from footage at a fixed time interval |
 | `auto_label.py` | Draft labels for new frames using existing weights |
+| `find_bubble_candidates.py` | Find candidate bubble frames via motion (background subtraction), not a YOLO model — avoids bootstrapping label errors from `auto_label.py` |
+| `strip_static_labels.py` | Detect and remove labels clustered at fixed screen positions (mislabeled static objects, not bubbles) |
+| `fetch_supplemental_bubble_data.py` | Download additional licensed bubble datasets from Roboflow Universe (needs `ROBOFLOW_API_KEY`) |
+| `merge_external_dataset.py` | Fold a downloaded external dataset into `dataset/{images,labels}/all`, remapping classes to `0` |
 | `normalize_labels.py` | Convert segmentation polygons to bounding boxes |
 | `split_dataset.py` | Build train/val splits, audit dataset integrity |
 | `train.py` | Fine-tune YOLOv8 on the bubble dataset |
@@ -162,18 +166,20 @@ variation.
 
 ## Dataset
 
-Two sources are merged in `dataset/`:
+Four sources are merged in `dataset/` — see `docs/DATASET.md` for the full
+breakdown, licenses, and history:
 
-- `vid_*` — frames extracted from the water bath footage in `media/`, drafted
-  with `auto_label.py` and reviewed.
-- `rf_*` — the [Air Leak Bubble Detection](https://universe.roboflow.com/vision-test-ic1cb/air-leak-bubble-detection)
-  dataset from Roboflow Universe, licensed **CC BY 4.0**. Attribution is
-  required if you redistribute this repository. Export details are in
-  `docs/roboflow-export.txt`.
+- `vid_*` — frames extracted from `media/test.mp4`. **Not a reliable source
+  of real bubble examples** — investigation found 99.5% of its original
+  labels were mislabeled static glare, not bubbles, and the footage itself
+  may not show visible leak activity. Kept as background-only data pending
+  manual relabeling of confirmed real footage.
+- `rf_*`, `oil_*`, `deakin_*` — real, licensed bubble/leak-test datasets
+  from Roboflow Universe (CC BY 4.0 / Public Domain). Attribution is
+  required for the CC BY sources if you redistribute this repository.
 
-All labels use a single class (`0`, bubble). The Roboflow export mixed
-detection boxes with segmentation polygons; `normalize_labels.py` converts
-the polygons to bounding boxes.
+All labels use a single class (`0`, bubble); source datasets with multiple
+bubble-related classes are remapped to it by `merge_external_dataset.py`.
 
 ## Tests
 

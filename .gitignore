@@ -22,6 +22,9 @@ outputs/
 dataset/images/raw/
 dataset/labels/raw/
 
+# Raw Roboflow downloads before merge_external_dataset.py folds them in
+dataset/external_raw/
+
 # Generated train/val splits. dataset/{images,labels}/all/ is the canonical
 # source and IS committed; these are exact copies of it, so committing them
 # would double the repository size for no benefit.
@@ -34,6 +37,9 @@ dataset/labels/val/
 # Pretrained checkpoint (ultralytics downloads this automatically)
 yolov8n.pt
 yolov8s.pt
+
+# Ultralytics label cache, regenerated automatically on first use
+*.cache
 
 # OS noise
 .DS_Store
